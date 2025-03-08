@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:package_master/services/storage_service.dart';
 import 'package:package_master/ui/order/provider/order_provider.dart';
+import 'package:package_master/ui/result/result_page.dart';
 import 'package:package_master/utils/theme/app_colors.dart';
 import 'package:provider/provider.dart';
 
@@ -118,9 +121,7 @@ class OrderPage extends StatelessWidget {
                               // status
                               Row(
                                 children: [
-                                  Text(
-                                    "Holat: ",
-                                  ),
+                                  Text("Holat: "),
                                   Container(
                                     decoration: BoxDecoration(
                                       color: AppColors.primary,
@@ -155,7 +156,7 @@ class OrderPage extends StatelessWidget {
                                         children: [
                                           for (final submodel in order['order_model']?['submodels'] ?? [])
                                             Chip(
-                                              padding: EdgeInsets.all(4),
+                                              padding: EdgeInsets.all(2),
                                               backgroundColor: AppColors.primary,
                                               label: Text(
                                                 submodel?['submodel']?['name'] ?? 'Unknown',
@@ -171,38 +172,59 @@ class OrderPage extends StatelessWidget {
                                 ],
                               ),
                               SizedBox(height: 8),
-                              Row(
+                              // o'lchamlar
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                  Text.rich(
+                                    TextSpan(
+                                      text: 'O\'lchamlar:',
+                                      style: textTheme.bodyMedium,
+                                    ),
+                                  ),
+                                  Wrap(
+                                    spacing: 4,
+                                    runSpacing: 4,
                                     children: [
-                                      Text.rich(
-                                        TextSpan(
-                                          text: 'O\'lchamlar:',
-                                          style: textTheme.bodyMedium,
-                                        ),
-                                      ),
-                                      Wrap(
-                                        spacing: 4,
-                                        runSpacing: 4,
-                                        children: [
-                                          for (final size in order['order_model']?['sizes'] ?? [])
-                                            Chip(
-                                              padding: EdgeInsets.all(4),
-                                              backgroundColor: AppColors.primary,
-                                              label: Text(
-                                                size['name'] ?? 'Unknown',
-                                                style: textTheme.bodyMedium?.copyWith(
-                                                  color: AppColors.light,
-                                                ),
-                                              ),
+                                      for (final size in order['order_model']?['sizes'] ?? [])
+                                        Chip(
+                                          padding: EdgeInsets.all(2),
+                                          backgroundColor: AppColors.primary,
+                                          label: Text(
+                                            size['size']?['name'] ?? 'Unknown',
+                                            style: textTheme.bodyMedium?.copyWith(
+                                              color: AppColors.light,
                                             ),
-                                        ],
-                                      ),
+                                          ),
+                                        ),
                                     ],
                                   ),
                                 ],
                               ),
+                              SizedBox(height: 8),
+                              // narx
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: TextButton(
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: AppColors.primary,
+                                        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                      ),
+                                      onPressed: () async {
+                                        StorageService.write("order_id", order['id']);
+                                        Get.to(() => ResultPage());
+                                      },
+                                      child: Text(
+                                        'Natija kiritish',
+                                        style: textTheme.titleSmall?.copyWith(
+                                          color: AppColors.light,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         );

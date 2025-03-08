@@ -13,7 +13,8 @@ class Api {
   static String orders = "$middle/orders";
   static String groups = "$middle/groups";
   static String results = "$middle/results";
-  static String fasteningOrderToGroup = "$middle/fasteningOrderToGroup";
+  static String packageOutcomes = "$middle/packageOutcomes";
+  static String packageStore = "$middle/packageStore";
 }
 
 class HttpService {

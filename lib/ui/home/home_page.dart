@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:package_master/ui/order/order_page.dart';
 import 'package:package_master/ui/order/provider/order_provider.dart';
 import 'package:package_master/utils/widgets/app/custom_navbar.dart';
 import 'package:provider/provider.dart';
@@ -37,8 +38,8 @@ class HomePage extends StatelessWidget {
                 ),
               ],
             ),
-            body: page['page'],
-            bottomNavigationBar: CustomNavbar(),
+            body: OrderPage(),
+            // bottomNavigationBar: CustomNavbar(),
           );
         },
       ),
