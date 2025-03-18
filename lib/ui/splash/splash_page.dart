@@ -15,7 +15,7 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   Future<void> _splashTime() async {
-    await Future.delayed(const Duration(milliseconds: 10));
+    await Future.delayed(const Duration(seconds: 2));
 
     String token = StorageService.read('token') ?? '';
     Map user = StorageService.read('user') ?? {};
@@ -39,25 +39,13 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Container(
-          width: 150,
-          height: 150,
-          padding: const EdgeInsets.all(24),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.secondary.withValues(alpha: 0.2),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: const Offset(0, 3),
-              ),
-            ],
-          ),
-          child: LoadingAnimationWidget.inkDrop(
-            color: AppColors.primary,
-            size: 50,
+        child: SizedBox(
+          width: double.infinity,
+          height: double.infinity,
+          child: Image.asset(
+            "assets/images/splash.jpg",
+            fit: BoxFit.cover,
+            alignment: Alignment.center,
           ),
         ),
       ),
